@@ -23,7 +23,6 @@ mongoose
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-// app.use(bodyParser.json());
 
 const playerSchema = new mongoose.Schema({
   name: { type: String, require: true },
@@ -38,7 +37,10 @@ const playerSchema = new mongoose.Schema({
 const Player = mongoose.model("Player", playerSchema);
 
 app.get("/", function (req, res) {
-  res.send("GET request to homepage");
+  Player.find({}, function (err, data) {
+    if (err) console.log(err);
+    res.json(data);
+  });
 });
 
 app.post("/api/add-new-player", function (req, res) {
@@ -72,10 +74,6 @@ app.post("/api/add-score", function (req, res) {
       res.json({ message: "You gain +1 score" });
     });
   });
-});
-
-app.get("/players", function (req, res) {
-  res.json("Players list");
 });
 
 const port = process.env.PORT || 8080;
