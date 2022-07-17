@@ -6,9 +6,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 app.use(cors());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*")
-}) 
 
 mongoose
   .connect(process.env.MONGO_URI, {
