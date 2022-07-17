@@ -36,7 +36,9 @@ const playerSchema = new mongoose.Schema({
 
 const Player = mongoose.model("Player", playerSchema);
 
-app.get("/", function (req, res) {
+app.get("/api", function (req, res) {
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
   Player.find({}, function (err, data) {
     if (err) console.log(err);
     res.json(data);
